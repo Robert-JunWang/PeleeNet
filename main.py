@@ -119,6 +119,7 @@ def main():
 def main_worker(gpu, ngpus_per_node, args):
     global best_acc1
     args.gpu = gpu
+    print( 'args:',args)
 
     if args.gpu is not None:
         print("Use GPU: {} for training".format(args.gpu))
@@ -208,7 +209,6 @@ def main_worker(gpu, ngpus_per_node, args):
             print("=> no checkpoint found at '{}'".format(args.resume))
     elif args.pretrained:
         if os.path.isfile(args.pretrained):
-            print("=> loading checkpoint '{}'".format(args.pretrained))
             checkpoint = torch.load(args.pretrained)
             model.load_state_dict(checkpoint['state_dict'])
 
