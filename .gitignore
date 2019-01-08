@@ -13,8 +13,8 @@ model_best.pth.tar
 
 .ipynb_checkpoints
 *.pyc
-*.pth
-*.tar
+#*.pth
+#*.tar
 *.hdf5
 *.h5
 *.npy

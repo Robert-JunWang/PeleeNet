@@ -212,7 +212,7 @@ def main_worker(gpu, ngpus_per_node, args):
             checkpoint = torch.load(args.pretrained)
             model.load_state_dict(checkpoint['state_dict'])
 
-            print("=> loaded checkpoint '{}' (epoch {}, prec@1 {})"
+            print("=> loaded checkpoint '{}' (epoch {}, acc@1 {})"
                   .format(args.pretrained, checkpoint['epoch'], checkpoint['best_acc1']))
         else:
             print("=> no checkpoint found at '{}'".format(args.resume))
