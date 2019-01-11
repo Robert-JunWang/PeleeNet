@@ -124,7 +124,7 @@ def create_model(num_classes, engine='torch'):
         caffe.set_mode_gpu()
         caffe.set_device(0)
 
-        model_def = args.model 
+        model_def = args.deploy
         model_weights = args.weights 
 
         model = caffe.Net(model_def,      # defines the structure of the model

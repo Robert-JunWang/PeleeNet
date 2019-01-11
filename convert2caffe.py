@@ -105,7 +105,7 @@ for i, caffe_conv in enumerate(caffe_stem_layers):
         _convert_basic_block(torch_conv, caffe_conv)
 
 # convert dense layers
-block_config=(3, 4, 4, 6)
+block_config=(3, 4, 8, 6)
 for i, num_layers in enumerate(block_config):
     for k in range(num_layers):
         torch_name = '{}.denseblock{}.denselayer{}'.format(torch_base_name, i + 1, k + 1)
