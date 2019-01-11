@@ -39,14 +39,14 @@ parser.add_argument('-b', '--batch-size', default=100, type=int,
 parser.add_argument('--print-freq', '-p', default=10, type=int,
                     metavar='N', help='print frequency (default: 10)')
 
-parser.add_argument('--model', '-m', metavar='ARCH', default='peleenet.prototxt',
+parser.add_argument('--deploy', '-m', metavar='ARCH', default='caffe/peleenet.prototxt',
                     help='model file ' )
 
 parser.add_argument('--engine', '-e', metavar='ENGINE', default='caffe', choices=engine_names,
                     help='engine type ' +
                         ' | '.join(engine_names) +
                         ' (default: caffe)')
-parser.add_argument('--weights', type=str, metavar='PATH', default='peleenet.caffemodel',
+parser.add_argument('--weights', type=str, metavar='PATH', default='caffe/peleenet.caffemodel',
                     help='path to init checkpoint (default: none)')
 
 parser.add_argument('--input-dim', default=224, type=int,
