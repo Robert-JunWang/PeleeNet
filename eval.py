@@ -6,7 +6,6 @@ import math
 import sys 
 
 import numpy as np
-import caffe 
 
 import torch 
 import torch.nn as nn 
@@ -120,7 +119,8 @@ def create_model(num_classes, engine='torch'):
         cudnn.benchmark = True
 
     else:
-        # create model
+        # create caffe model
+        import caffe 
         caffe.set_mode_gpu()
         caffe.set_device(0)
 

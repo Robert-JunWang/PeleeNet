@@ -21,7 +21,7 @@ model_best.pth.tar
 
 *.out
 *.log
-*.caffemodel
+#*.caffemodel
 *.solverstate
 
 
