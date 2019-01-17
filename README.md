@@ -36,5 +36,5 @@ The table below shows the results on ILSVRC 2012 val.
 | Condensenet (C=G=8)  | 274M | 4.0M | 71 | 40 |
 |MobileNet v2   | 300 M   | 3.5 M   | 72.0   | 123|
 |ShuffleNet v2 1.5x  |  300 M  | 5.2 M  | 72.6  | 164|
-|**PeleeNet (our)**  |  508 M  |  2.8 M  |  72.1  |  **240**|
-|**PeleeNet v2 (our)** | 621 M  |  4.4 M  |  **73.8**  |  **245**|
+|**PeleeNet (our)**  |  508 M  |  2.8 M  |  72.6  |  **240**|
+|**PeleeNet v2 (our)** | 621 M  |  4.4 M  |  **73.9**  |  **245**|
