@@ -19,6 +19,7 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets 
 
 from peleenet import PeleeNet 
+from main import validate as validate_torch
 
 
 model_names = [ 'peleenet'] 
@@ -45,8 +46,8 @@ parser.add_argument('--engine', '-e', metavar='ENGINE', default='caffe', choices
                     help='engine type ' +
                         ' | '.join(engine_names) +
                         ' (default: caffe)')
-parser.add_argument('--weights', type=str, metavar='PATH', default='caffe/peleenet.caffemodel',
-                    help='path to init checkpoint (default: none)')
+parser.add_argument('--weights', type=str, metavar='PATH',
+                    help='path to checkpoint (default: none)')
 
 parser.add_argument('--input-dim', default=224, type=int,
                     help='size of the input dimension (default: 224)')
@@ -86,7 +87,10 @@ def main():
     model = create_model(num_classes, args.engine)
 
     if args.engine == 'torch':
-        validate_torch(val_loader, model)
+        # define loss function (criterion) and optimizer
+        criterion = nn.CrossEntropyLoss().cuda()
+        args.gpu = None
+        validate_torch(val_loader, model, criterion, args)
     else:
         validate_caffe(val_loader, model)
 
@@ -133,53 +137,53 @@ def create_model(num_classes, engine='torch'):
 
     return model
 
-def validate_torch(val_loader, model):
+# def validate_torch(val_loader, model):
 
 
-    # define loss function (criterion) and optimizer
-    criterion = nn.CrossEntropyLoss().cuda()
+#     # define loss function (criterion) and optimizer
+#     criterion = nn.CrossEntropyLoss().cuda()
 
-    batch_time = AverageMeter()
-    losses = AverageMeter()
-    top1 = AverageMeter()
-    top5 = AverageMeter()
+#     batch_time = AverageMeter()
+#     losses = AverageMeter()
+#     top1 = AverageMeter()
+#     top5 = AverageMeter()
 
-    # switch to evaluate mode
-    model.eval()
+#     # switch to evaluate mode
+#     model.eval()
 
-    end = time.time()
-    for i, (input, target) in enumerate(val_loader):
-        target = target.cuda(async=True)
-        input_var = torch.autograd.Variable(input, volatile=True)
-        target_var = torch.autograd.Variable(target, volatile=True)
+#     end = time.time()
+#     for i, (input, target) in enumerate(val_loader):
+#         target = target.cuda(async=True)
+#         input_var = torch.autograd.Variable(input, volatile=True)
+#         target_var = torch.autograd.Variable(target, volatile=True)
 
-        # compute output
-        output = model(input_var)
-        loss = criterion(output, target_var)
+#         # compute output
+#         output = model(input_var)
+#         loss = criterion(output, target_var)
 
-        # measure accuracy and record loss
-        prec1, prec5 = accuracy(output.data, target, topk=(1, 5))
-        losses.update(loss.data[0], input.size(0))
-        top1.update(prec1[0], input.size(0))
-        top5.update(prec5[0], input.size(0))
+#         # measure accuracy and record loss
+#         prec1, prec5 = accuracy(output.data, target, topk=(1, 5))
+#         losses.update(loss.data[0], input.size(0))
+#         top1.update(prec1[0], input.size(0))
+#         top5.update(prec5[0], input.size(0))
 
-        # measure elapsed time
-        batch_time.update(time.time() - end)
-        end = time.time()
+#         # measure elapsed time
+#         batch_time.update(time.time() - end)
+#         end = time.time()
 
-        if i % args.print_freq == 0:
-            print('Test: [{0}/{1}]\t'
-                  'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-                  'Prec@1 {top1.val:.3f} ({top1.avg:.3f})\t'
-                  'Prec@5 {top5.val:.3f} ({top5.avg:.3f})'.format(
-                   i, len(val_loader), batch_time=batch_time, loss=losses,
-                   top1=top1, top5=top5))
+#         if i % args.print_freq == 0:
+#             print('Test: [{0}/{1}]\t'
+#                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
+#                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
+#                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})\t'
+#                   'Prec@5 {top5.val:.3f} ({top5.avg:.3f})'.format(
+#                    i, len(val_loader), batch_time=batch_time, loss=losses,
+#                    top1=top1, top5=top5))
 
-    print(' * Prec@1 {top1.avg:.3f} Prec@5 {top5.avg:.3f}'
-          .format(top1=top1, top5=top5))
+#     print(' * Prec@1 {top1.avg:.3f} Prec@5 {top5.avg:.3f}'
+#           .format(top1=top1, top5=top5))
 
-    return top1.avg
+#     return top1.avg
 
 
 def validate_caffe(val_loader, net):
