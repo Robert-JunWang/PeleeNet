@@ -1,7 +1,7 @@
 # PeleeNet
 PeleeNet: An efficient DenseNet architecture for mobile devices
 
-An implementation of PeleeNet in PyTorch. PeleeNet is an efficient Convolutional Neural Network (CNN)architecture built with
+An implementation of PeleeNet in PyTorch. PeleeNet is an efficient Convolutional Neural Network (CNN) architecture built with
 conventional convolution. Compared to other efficient architectures,PeleeNet has a great speed advantage and esay to be applied to the computer vision tasks other than image classification. 
 
 For more information, check the paper:
@@ -27,7 +27,8 @@ url = {http://papers.nips.cc/paper/7466-pelee-a-real-time-object-detection-syste
 
 ```
 ## Results on ImageNet ILSVRC 2012
-The table below shows the results on ILSVRC 2012 val.
+The table below shows the results on the
+ImageNet ILSVRC 2012 validation set, with single-crop testing.
 
 | Model | FLOPs | # parameters |Top-1 Acc |FPS (NVIDIA TX2)|
 |:-------|:-----:|:-------:|:-------:|:-------:|
