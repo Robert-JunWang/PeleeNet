@@ -59,6 +59,8 @@ parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
 parser.add_argument('--pretrained', dest='pretrained', type=str,
                     help='path to pre-trained model')
+parser.add_argument('--input-dim', default=224, type=int,
+                    help='size of the input dimension (default: 224)')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
                     help='evaluate model on validation set')
 parser.add_argument('--world-size', default=-1, type=int,
@@ -143,8 +145,8 @@ def main_worker(gpu, ngpus_per_node, args):
     val_dataset = datasets.ImageFolder(
         valdir,
         transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
+            transforms.Resize(args.input_dim+32),
+            transforms.CenterCrop(args.input_dim),
             transforms.ToTensor(),
             normalize,
         ]))
@@ -231,7 +233,7 @@ def main_worker(gpu, ngpus_per_node, args):
     train_dataset = datasets.ImageFolder(
         traindir,
         transforms.Compose([
-            transforms.RandomResizedCrop(224),
+            transforms.RandomResizedCrop(args.input_dim),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             normalize,
