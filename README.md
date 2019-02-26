@@ -16,14 +16,15 @@ If you find this work useful in your research, please consider citing:
 
 @incollection{NIPS2018_7466,
 title = {Pelee: A Real-Time Object Detection System on Mobile Devices},
-author = {Wang, Robert J and Li, Xiang and Ling, Charles X},
+author = {Wang, Robert J. and Li, Xiang and Ling, Charles X.},
 booktitle = {Advances in Neural Information Processing Systems 31},
 editor = {S. Bengio and H. Wallach and H. Larochelle and K. Grauman and N. Cesa-Bianchi and R. Garnett},
-pages = {1967--1976},
+pages = {1963--1972},
 year = {2018},
 publisher = {Curran Associates, Inc.},
 url = {http://papers.nips.cc/paper/7466-pelee-a-real-time-object-detection-system-on-mobile-devices.pdf}
 }
+
 
 ```
 ## Results on ImageNet ILSVRC 2012
